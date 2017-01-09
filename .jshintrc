@@ -1,0 +1,15 @@
+{
+    "curly": true,
+    "esversion": 6,
+    "eqeqeq": true,
+    "eqnull": true,
+    "expr": true,
+    "latedef": true,
+    "onevar": true,
+    "noarg": true,
+    "node": true,
+    "trailing": true,
+    "undef": true,
+    "mocha": true,
+    "unused": true
+}

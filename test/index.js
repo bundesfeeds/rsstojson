@@ -8,7 +8,6 @@ describe('rsstojson', function() {
     done();
   });
 
-  const assert = require('chai').assert;
   var exec = require('child-process-promise').exec;
 
   var commands =[

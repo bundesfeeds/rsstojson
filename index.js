@@ -1,5 +1,4 @@
 module.exports = function () {
-  var program;
   return {
     parse: function(program) {
       program = program;
