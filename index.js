@@ -19,7 +19,7 @@ module.exports = function () {
             var chunk = process.stdin.read();
             if (chunk !== null) {
               program.args[0] = chunk;
-              resolve(program)
+              resolve(program);
             } else if (!program.args[0]) {
               program.help();
               process.exit(1);
@@ -32,7 +32,7 @@ module.exports = function () {
           });
 
         } else {
-          resolve(program)
+          resolve(program);
         }
       });
       return p.then(checkLenght);
