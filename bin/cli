@@ -1,0 +1,64 @@
+#!/usr/bin/env node
+'use strict';
+var program = require('commander');
+
+var FeedParser = require('feedparser');
+var request = require('request'); // for fetching the feed
+var md5 = require('md5');
+
+var pkg = require('../package');
+program.version( pkg.version, '-v, --version');
+program
+  .description(pkg.description)
+  .parse(process.argv);
+
+// print help with no args
+if (program.args.length < 1) {
+  program.help();
+}
+
+var cli = require('../index.js')();
+
+cli
+  .parse(program)
+  .then(function(program) {
+    var req = request(program.args[0])
+    var feedparser = new FeedParser();
+
+    req.on('error', function (error) {
+      console.error(error);
+      process.exit(1);
+    });
+
+    req.on('response', function (res) {
+      var stream = this; // `this` is `req`, which is a stream
+
+      if (res.statusCode !== 200) {
+        this.emit('error', new Error('Bad status code'));
+      }
+      else {
+        stream.pipe(feedparser);
+      }
+    });
+    feedparser.on('error', function (error) {
+      console.error(error);
+      process.exit(1);
+    });
+    var allItems = [];
+    feedparser.on('readable', function () {
+      // This is where the action is!
+      var stream = this; // `this` is `feedparser`, which is a stream
+      var meta = this.meta; // **NOTE** the "meta" is always available in the context of the feedparser instance
+      var item;
+      while (item = stream.read()) {
+        allItems.push(item);
+      }
+    });
+
+    feedparser.on('end', function () {
+      console.log(JSON.stringify(allItems));
+      process.exit(0);
+    });
+
+  })
+  .catch(console.error)
