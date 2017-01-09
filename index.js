@@ -12,7 +12,6 @@ module.exports = function () {
 
       var p = new Promise(function(resolve, reject) {
         if (program.args.length < 1) {
-          var stdInData;
           process.stdin.setEncoding('utf8');
 
           process.stdin.on('readable', () => {
@@ -37,5 +36,5 @@ module.exports = function () {
       });
       return p.then(checkLenght);
     }
-  }
+  };
 };
