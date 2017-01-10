@@ -1,6 +1,9 @@
 2017-01-10
 ==========
 
+  * 0.1.1
+  * Fix
+  * changelog
   * 0.1.0
   * Feature: Added minimal JSON
 
