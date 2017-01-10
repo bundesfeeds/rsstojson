@@ -10,6 +10,7 @@ var pkg = require('../package');
 program.version( pkg.version, '-v, --version');
 program
   .description(pkg.description)
+  .option('-m, --minimal', 'Only return url, title and description')
   .parse(process.argv);
 
 // print help with no args
@@ -56,6 +57,18 @@ cli
     });
 
     feedparser.on('end', function () {
+
+      if (program.minimal) {
+        allItems = allItems.map(function(item) {
+          // console.log(item.title, item.link, item.description);
+          return {
+            title: item.title,
+            link: item.link,
+            description: item.description
+          };
+        });
+      }
+
       console.log(JSON.stringify(allItems));
       process.exit(0);
     });
