@@ -1,6 +1,6 @@
 {
   "name": "rsstojson",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "converts rss to json ",
   "main": "index.js",
   "scripts": {
